@@ -7,6 +7,7 @@
   import tutoRouter from './routes/tuto.js';
   import dockerRouter from './routes/docker.js';
   import usersRouter from './routes/users.js';
+  import contactRouter from './routes/contanct.js';
   import { fileURLToPath } from 'url';
   import { dirname } from 'path';
 
@@ -27,6 +28,7 @@
   app.use('/tuto', tutoRouter);
   app.use('/docker', dockerRouter);
   app.use('/users', usersRouter);
+  app.use('/contact', contactRouter);
 
   app.use(function(req, res, next) {
     next(createError(404));

@@ -8,6 +8,8 @@ class Parameters {
     this.host = this.setHost();
     this.port = this.setPort();
     this.dataBaseUrl = this.setDataBaseUrl();
+    this.gmailUser = this.setGmailUser();
+    this.password = this.setPassword();
   }
 
   loadEnv = () => {
@@ -47,10 +49,15 @@ class Parameters {
   setHost = () => process.env.HOST;
   setPort = () => process.env.PORT;
   setDataBaseUrl = () => process.env.DATA_BASE_URL;
+  setGmailUser = () => process.env.EMAIL;
+  setPassword = () => process.env.PSWD;
+  
 
   getHost = () => this.host;
   getPort = () => this.port;
   getDataBaseUrl = () => this.dataBaseUrl;
+  getGmailUser = () => this.gmailUser;
+  getPassword = () => this.password;
 }
 
 const parameters = new Parameters();
