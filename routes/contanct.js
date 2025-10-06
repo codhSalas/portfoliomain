@@ -27,7 +27,6 @@ router.post('/', function(req, res, next) {
         if (error) {
             console.log(error);
             res.status(500).render('error' , {error : error})
-            // res.status(500).send('Error sending email');
         } else {
             console.log('Email sent: ' + info.response);
             res.status.redirect('/')
