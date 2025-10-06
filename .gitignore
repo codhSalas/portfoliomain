@@ -3,3 +3,4 @@ bin
 .env
 .env.dev
 .env.prod 
+git.sh
