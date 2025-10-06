@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/stylesheets/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="/images/logo.png">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="mobile-header">
+                <img id="logo" src="/images/logo.png" alt="logo"/>
+                <div class="logo">SALAS<br>OUKIL</div>
+                
+                <button class="menu-toggle">&#9776;</button>
+                <nav>
+                    <ul>
+                        <li><a href="#about">À propos</a></li>
+                        <li><a href="#alternance">Alternance</a></li>
+                        <li><a href="#education">Formation</a></li>
+                        <li><a href="#skills">Compétences</a></li>
+                        <li><a href="#experience">Expérience</a></li>
+                        <li><a href="#projects">Projets</a></li>
+                        <li><a href="#engagement">Engagement</a></li>
+                        <li><a href="#interests">Centres d'intérêt</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="title">COMPUTER SCIENCE STUDENT</h1>
+                <p class="subtitle">Hello, I'm a computer science student based in Paris. Welcome to my portfolio!</p>
+            </div>
+            <div class="profile-image">
+                <img src="/images/salas.png" alt="Salas OUKIL">
+            </div>
+        </section>
+        <!-- RECHERCHE D'ALTERNANCE -->
+        <% if (alternance) { %>
+            <section id="alternance">
+                <h2 class="section-title"><i class="fa-solid fa-bullseye-arrow"></i> Recherche d'Alternance</h2>
+                <div class="card-container">
+                    <div class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                        <h3 class="card-title" style="color: white;"><%= alternance.poste %></h3>
+                        <div style="display: flex; gap: 2rem; margin-top: 1rem; flex-wrap: wrap;">
+                            <div>
+                                <p style="margin: 0;"><strong><i class="fa-solid fa-calendar"></i> Durée :</strong> <%= alternance.duree %></p>
+                            </div>
+                            <div>
+                                <p style="margin: 0;"><strong><i class="fa-solid fa-check"></i> Disponibilité :</strong> <%= alternance.disponibilite %></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <% } %>
+        <!-- À PROPOS -->
+        <section id="about">
+            <h2 class="section-title">À propos de moi</h2>
+            <% if (profil) { %>
+                <p><%= profil %></p>
+            <% } else { %>
+                <p>Étudiant passionné d'informatique basé à Paris, je suis spécialisé en développement web et intelligence artificielle.</p>
+            <% } %>
+        </section>
+
+        <!-- FORMATION -->
+        <section id="education">
+            <h2 class="section-title"><i class="fa-solid fa-school"></i> Formation</h2>
+            <% if (formation && formation.length > 0) { %>
+            <div class="card-container">
+                <% formation.forEach(form => { %>
+                <div class="card">
+                    <h3 class="card-title"><%= form.intitule %></h3>
+                    <h4 class="card-subtitle"><%= form.ecole %> | <%= form.periode %></h4>
+                    <% if (form.specialisation) { %>
+                        <p style="margin-top: 1rem;"><strong>Spécialisation :</strong> <%= form.specialisation %></p>
+                    <% } %>
+                    <% if (form.cours_principaux && form.cours_principaux.length > 0) { %>
+                        <p style="margin-top: 0.5rem;"><strong>Cours principaux :</strong> <%= form.cours_principaux.join(' • ') %></p>
+                    <% } %>
+                </div>
+                <% }) %>
+            </div>
+            <% } else { %>
+                <p>Aucune formation trouvée.</p>
+            <% } %>
+        </section>
+        
+        <!-- COMPÉTENCES -->
+        <section id="skills">
+            <h2 class="section-title"><i class="fa-solid fa-code"></i> Compétences Techniques</h2>
+            <% if (competences) { %>
+            <div class="card-container">
+                <% if (competences.langages && competences.langages.length > 0) { %>
+                <div class="card">
+                    <h3 class="card-title">Langages de programmation</h3>
+                    <div class="skills-container">
+                        <% competences.langages.forEach(lang => { %>
+                            <span class="skill-tag"><%= lang %></span>
+                        <% }) %>
+                    </div>
+                </div>
+                <% } %>
+                
+                <% if (competences.front_end && competences.front_end.length > 0) { %>
+                <div class="card">
+                    <h3 class="card-title">Front-end</h3>
+                    <div class="skills-container">
+                        <% competences.front_end.forEach(tech => { %>
+                            <span class="skill-tag"><%= tech %></span>
+                        <% }) %>
+                    </div>
+                </div>
+                <% } %>
+                
+                <% if (competences.back_end && competences.back_end.length > 0) { %>
+                <div class="card">
+                    <h3 class="card-title">Back-end & Bases de données</h3>
+                    <div class="skills-container">
+                        <% competences.back_end.forEach(tech => { %>
+                            <span class="skill-tag"><%= tech %></span>
+                        <% }) %>
+                    </div>
+                </div>
+                <% } %>
+                
+                <% if (competences.outils && competences.outils.length > 0) { %>
+                <div class="card">
+                    <h3 class="card-title">Outils & DevOps</h3>
+                    <div class="skills-container">
+                        <% competences.outils.forEach(outil => { %>
+                            <span class="skill-tag"><%= outil %></span>
+                        <% }) %>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+            <% } %>
+            
+            <!-- Compétences transversales -->
+            <% if (competences_transversales && competences_transversales.length > 0) { %>
+            <h3 class="section-title" style="font-size: 1.5rem; margin-top: 2rem;"><i class="fa-solid fa-handshake"></i> Compétences Transversales</h3>
+            <div class="card-container">
+                <div class="card">
+                    <div class="skills-container">
+                        <% competences_transversales.forEach(comp => { %>
+                            <span class="skill-tag"><%= comp %></span>
+                        <% }) %>
+                    </div>
+                </div>
+            </div>
+            <% } %>
+        </section>
+        
+        <!-- EXPÉRIENCE PROFESSIONNELLE -->
+        <section id="experience">
+            <h2 class="section-title">💼 Expérience Professionnelle</h2>
+            <% if (experience_professionnelle && experience_professionnelle.length > 0) { %>
+                <div class="card-container">
+                    <% experience_professionnelle.forEach(exp => { %>
+                    <div class="card">
+                        <h3 class="card-title"><%= exp.poste %></h3>
+                        <h4 class="card-subtitle"><%= exp.entreprise %> | <%= exp.periode %></h4>
+                        <% if (exp.missions && exp.missions.length > 0) { %>
+                        <ul style="margin-top: 1rem; line-height: 1.8;">
+                            <% exp.missions.forEach(mission => { %>
+                                <li><%= mission %></li>
+                            <% }) %>
+                        </ul>
+                        <% } %>
+                    </div>
+                    <% }) %>
+                </div>
+            <% } else { %>
+                <div class="card-container">
+                    <div class="card">
+                        <h3 class="card-title">Tuteur en programmation</h3>
+                        <h4 class="card-subtitle">2021 - 2023</h4>
+                        <p>Enseignement des bases de la programmation Python et algorithmique aux débutants.</p>
+                    </div>
+                </div>
+            <% } %>
+        </section>
+        
+        <!-- PROJETS GITHUB -->
+        <section id="projects">
+            <h2 class="section-title">🚀 Projets</h2>
+            
+            <% if (error) { %>
+                <div class="error-message" style="background: #fee; color: #c33; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                    ⚠️ <%= error %>
+                </div>
+            <% } %>
+            
+            <div class="card-container">
+                <% if (projects && projects.length > 0) { %>
+                    <% projects.forEach(project => { %>
+                        <div class="card project-card">
+                            <h3 class="card-title">
+                                <% if (project.homepage) { %>
+                                    <a href="<%= project.homepage %>" target="_blank" style="text-decoration: none; color: inherit;">
+                                        <%= project.name %>
+                                    </a>
+                                <% } else { %>
+                                    <%= project.name %>
+                                <% } %>
+                            </h3>
+                            <p style="color: #666; margin: 1rem 0;">
+                                <%= project.description || 'Pas de description disponible' %>
+                            </p>
+                            
+                            <div class="skills-container" style="margin: 1rem 0;">
+                                <% if (project.language) { %>
+                                    <span class="skill-tag"><%= project.language %></span>
+                                <% } %>
+                                <span class="skill-tag"><i class="fa-solid fa-star"></i> <%= project.stars || 0 %></span>
+                            </div>
+                            
+                            <a href="<%= project.url %>" target="_blank" class="btn">Voir sur GitHub →</a>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p style="text-align: center; color: #999;">Aucun projet trouvé. Consultez mon profil GitHub pour voir mes contributions.</p>
+                <% } %>
+            </div>
+        </section>
+
+        <!-- ENGAGEMENT ASSOCIATIF -->
+        <% if (engagement_associatif) { %>
+        <section id="engagement">
+            <h2 class="section-title"><i class="fa-solid fa-heart"></i> Engagement Associatif</h2>
+            <div class="card-container">
+                <div class="card">
+                    <h3 class="card-title"><%= engagement_associatif.association %></h3>
+                    <p style="margin-top: 0.5rem; font-size: 1.1rem;"><%= engagement_associatif.role %></p>
+                </div>
+            </div>
+        </section>
+        <% } %>
+
+        <!-- CENTRES D'INTÉRÊT -->
+        <% if (centres_d_interet && centres_d_interet.loisirs && centres_d_interet.loisirs.length > 0) { %>
+        <section id="interests">
+            <h2 class="section-title"><i class="fa-solid fa-gamepad"></i> Centres d'intérêt</h2>
+            <div class="card-container">
+                <div class="card">
+                    <div class="skills-container">
+                        <% centres_d_interet.loisirs.forEach(loisir => { %>
+                            <span class="skill-tag"><%= loisir %></span>
+                        <% }) %>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <% } %>
+        
+        <!-- CONTACT -->
+        <section id="contact">
+            <h2 class="section-title"><span class="contact-icon"><i class="fas fa-envelope"></i></span>
+                Contact</h2>
+            <p style="text-align: center; margin-bottom: 2rem;">
+                N'hésitez pas à me contacter pour discuter de collaborations, opportunités d'alternance ou simplement pour échanger sur des sujets tech.
+            </p>
+            
+            <div class="contact-container">
+                <div class="contact-form">
+                    <h3 class="card-title">Envoyez-moi un message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Nom</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Sujet</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Envoyer le message</button>
+                    </form>
+                    <div id="formMessage" class="form-message" style="display:none;"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- FOOTER -->
+    <footer>
+        <div class="contact-details">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="contact-icon"><i class="fas fa-envelope"></i></span>
+                    <span><a href="mailto:salasoukil007@gmail.com">salasoukil007@gmail.com</a></span>
+                </div>
+                
+                <div class="contact-item">
+                    <span class="contact-icon"><i class="fas fa-phone"></i></span>
+                    <span>+33 7 44 19 01 05</span>
+                </div>
+
+                <% if (contact && contact.github) { %>
+                <div class="contact-item">
+                    <span class="contact-icon"><i class="fab fa-github"></i></span>
+                    <a href="<%= contact.github %>" target="_blank">GitHub</a>
+                </div>
+                <% } %>
+
+                <% if (contact && contact.linkedin) { %>
+                <div class="contact-item">
+                    <span class="contact-icon"><i class="fab fa-linkedin"></i></span>
+                    <a href="<%= contact.linkedin %>" target="_blank">LinkedIn</a>
+                </div>
+                <% } %>
+
+                <div class="contact-item">
+                    <span class="contact-icon"><i class="fas fa-map-marker-alt"></i></span>
+                    <span>Paris, France</span>
+                </div>
+            </div>
+        </div>
+        <p>&copy; 2025 Salas OUKIL. Tous droits réservés.</p>
+    </footer>
+    
+    <script>
+        // Menu mobile
+        const menuToggle = document.querySelector('.menu-toggle');
+        const nav = document.querySelector('nav');
+        
+        menuToggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+        });
+        
+        // Fermer le menu au clic sur un lien
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+            });
+        });
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Formulaire de contact
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formMessage = document.getElementById('formMessage');
+            formMessage.textContent = 'Envoi en cours...';
+            formMessage.className = 'form-message';
+            formMessage.style.display = 'block';
+            formMessage.style.background = '#e3f2fd';
+            formMessage.style.color = '#1976d2';
+            
+            // Simulation d'envoi (remplacer par un vrai appel API)
+            setTimeout(() => {
+                formMessage.textContent = '✓ Votre message a été envoyé avec succès ! Je vous répondrai dans les plus brefs délais.';
+                formMessage.style.background = '#e8f5e9';
+                formMessage.style.color = '#2e7d32';
+                
+                document.getElementById('contactForm').reset();
+                
+                setTimeout(() => {
+                    formMessage.style.display = 'none';
+                }, 5000);
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Optimisation SSR & Cache - Portfolio</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Styles pour les icônes SVG inline */
+    .icon-svg {
+      width: 48px;
+      height: 48px;
+      stroke: #818cf8;
+      fill: none;
+      stroke-width: 2;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    
+    .card-icon .icon-svg {
+      filter: drop-shadow(0 0 10px rgba(129, 140, 248, 0.3));
+    }
+    
+    .flow-icon .icon-svg {
+      width: 36px;
+      height: 36px;
+    }
+    
+    .btn .icon-svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+    }
+    
+    .logo .icon-svg {
+      width: 32px;
+      height: 32px;
+      animation: float 3s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-brand">
+        <span class="logo">
+          <svg class="icon-svg" viewBox="0 0 24 24">
+            <path d="M9 21h6M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+          </svg>
+        </span>
+        <span class="brand-text">Portfolio Technique</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="/">Accueil</a></li>
+        <li><a href="/projects">Projets</a></li>
+        <li><a href="/explanation" class="active">Explications</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1 class="hero-title">
+          Comment ce portfolio est <span class="gradient-text">optimisé</span>
+        </h1>
+        <p class="hero-subtitle">
+          Une architecture moderne combinant SSR, cache intelligent et SEO optimal
+        </p>
+      </div>
+    </div>
+    <div class="hero-decoration">
+      <div class="circle circle-1"></div>
+      <div class="circle circle-2"></div>
+      <div class="circle circle-3"></div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container main-content">
+    
+    <!-- Section 1: Le problème -->
+    <section class="content-section">
+      <div class="section-header">
+        <span class="section-number">01</span>
+        <h2>Le problème du rendu client</h2>
+      </div>
+      <div class="card">
+        <div class="card-icon">
+          <svg class="icon-svg" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M15 9l-6 6m0-6l6 6"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <h3>Pourquoi le JavaScript client est problématique ?</h3>
+          <ul class="feature-list">
+            <li>
+              <strong>SEO dégradé :</strong> Les moteurs de recherche ont du mal à indexer le contenu généré en JavaScript
+            </li>
+            <li>
+              <strong>Performance :</strong> Le navigateur doit télécharger, parser et exécuter le JS avant d'afficher le contenu
+            </li>
+            <li>
+              <strong>Accessibilité :</strong> Le contenu n'est pas disponible si JavaScript est désactivé
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: La solution -->
+    <section class="content-section">
+      <div class="section-header">
+        <span class="section-number">02</span>
+        <h2>Notre solution : SSR + Cache</h2>
+      </div>
+      
+      <div class="grid">
+        <div class="card card-highlight">
+          <div class="card-icon">
+            <svg class="icon-svg" viewBox="0 0 24 24">
+              <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+          </div>
+          <h3>Server-Side Rendering</h3>
+          <p>Le HTML est généré côté serveur avec EJS. Les moteurs de recherche reçoivent du HTML complet.</p>
+          <div class="badge badge-success">SEO Optimal</div>
+        </div>
+
+        <div class="card card-highlight">
+          <div class="card-icon">
+            <svg class="icon-svg" viewBox="0 0 24 24">
+              <ellipse cx="12" cy="5" rx="9" ry="3"/>
+              <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+              <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+            </svg>
+          </div>
+          <h3>Cache multi-niveau</h3>
+          <p>Cache des données API (1h) et du HTML généré (10min) pour des performances maximales.</p>
+          <div class="badge badge-info">Ultra Rapide</div>
+        </div>
+
+        <div class="card card-highlight">
+          <div class="card-icon">
+            <svg class="icon-svg" viewBox="0 0 24 24">
+              <path d="M1 4v6h6M23 20v-6h-6"/>
+              <path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/>
+            </svg>
+          </div>
+          <h3>Invalidation intelligente</h3>
+          <p>Webhooks et endpoints pour vider le cache automatiquement lors de mises à jour.</p>
+          <div class="badge badge-warning">Toujours à jour</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Architecture -->
+    <section class="content-section">
+      <div class="section-header">
+        <span class="section-number">03</span>
+        <h2>Architecture technique</h2>
+      </div>
+      
+      <div class="card">
+        <h3>Flux de données</h3>
+        <div class="flow-diagram">
+          <div class="flow-step">
+            <div class="flow-icon">
+              <svg class="icon-svg" viewBox="0 0 24 24">
+                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                <circle cx="12" cy="7" r="4"/>
+              </svg>
+            </div>
+            <p>Utilisateur</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-icon">
+              <svg class="icon-svg" viewBox="0 0 24 24">
+                <rect x="2" y="2" width="20" height="8" rx="2" ry="2"/>
+                <rect x="2" y="14" width="20" height="8" rx="2" ry="2"/>
+                <path d="M6 6h.01M6 18h.01"/>
+              </svg>
+            </div>
+            <p>Serveur Express</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-icon">
+              <svg class="icon-svg" viewBox="0 0 24 24">
+                <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+              </svg>
+            </div>
+            <p>Cache HTML</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="flow-icon">
+              <svg class="icon-svg" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+              </svg>
+            </div>
+            <p>APIs externes</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card code-card">
+        <h3>Exemple de code</h3>
+        <pre><code>// Cache middleware
+function cacheMiddleware(duration) {
+  return (req, res, next) => {
+    const key = req.originalUrl;
+    const cached = htmlCache.get(key);
+    
+    if (cached) {
+      return res.send(cached); // ⚡ Instant
+    }
+    
+    // Génère et cache le HTML
+    next();
+  };
+}
+
+// Route avec cache
+app.get('/', cacheMiddleware(600), async (req, res) => {
+  const projects = await fetchGitHubProjects();
+  res.render('index', { projects });
+});</code></pre>
+      </div>
+    </section>
+
+    <!-- Section 4: Résultats -->
+    <section class="content-section">
+      <div class="section-header">
+        <span class="section-number">04</span>
+        <h2>Résultats mesurables</h2>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">95+</div>
+          <div class="stat-label">Score Lighthouse</div>
+          <div class="stat-bar">
+            <div class="stat-fill" style="width: 95%"></div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-value">&lt;50ms</div>
+          <div class="stat-label">Temps de réponse (cache)</div>
+          <div class="stat-bar">
+            <div class="stat-fill stat-fill-success" style="width: 98%"></div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-value">100%</div>
+          <div class="stat-label">Contenu indexable</div>
+          <div class="stat-bar">
+            <div class="stat-fill stat-fill-warning" style="width: 100%"></div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-value">-90%</div>
+          <div class="stat-label">Appels API économisés</div>
+          <div class="stat-bar">
+            <div class="stat-fill stat-fill-info" style="width: 90%"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Comparaison -->
+    <section class="content-section">
+      <div class="section-header">
+        <span class="section-number">05</span>
+        <h2>Comparaison des approches</h2>
+      </div>
+
+      <div class="comparison-table">
+        <div class="comparison-header">
+          <div></div>
+          <div>Client-Side (React/Vue)</div>
+          <div>SSR classique</div>
+          <div class="highlight-col">SSR + Cache (Notre solution)</div>
+        </div>
+        
+        <div class="comparison-row">
+          <div class="comparison-label">SEO</div>
+          <div>
+            <svg class="icon-svg" style="width: 20px; height: 20px; stroke: #fbbf24;" viewBox="0 0 24 24">
+              <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+              <path d="M12 9v4m0 4h.01"/>
+            </svg>
+            Limité
+          </div>
+          <div>
+            <svg class="icon-svg" style="width: 20px; height: 20px; stroke: #34d399;" viewBox="0 0 24 24">
+              <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+              <path d="M22 4L12 14.01l-3-3"/>
+            </svg>
+            Excellent
+          </div>
+          <div class="highlight-col">
+            <svg class="icon-svg" style="width: 20px; height: 20px; stroke: #34d399;" viewBox="0 0 24 24">
+              <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+              <path d="M22 4L12 14.01l-3-3"/>
+            </svg>
+            Excellent
+          </div>
+        </div>
+
+        <div class="comparison-row">
+          <div class="comparison-label">Performance</div>
+          <div>
+            <svg class="icon-svg" style="width: 20px; height: 20px; stroke: #fbbf24;" viewBox="0 0 24 24">
+              <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+              <path d="M12 9v4m0 4h.01"/>
+            </svg>
+            Dépend du client
+          </div>
+          <div>
+            <svg class="icon-svg" style="width: 20px; height: 20px; stroke: #fbbf24;" viewBox="0 0 24 24">
+              <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+              <path d="M12 9v4m0 4h.01"/>
+            </svg>
+            Rendu à chaque requête
+          </div>
+          <div class="highlight-col">
+            <svg class="icon-svg" style="width: 20px; height: 20px; stroke: #34d399;" viewBox="0 0 24 24">
+              <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+              <path d="M22 4L12 14.01l-3-3"/>
+            </svg>
+            Ultra rapide
+          </div>
+        </div>
+
+        <div class="comparison-row">
+          <div class="comparison-label">Coût serveur</div>
+          <div>
+            <svg class="icon-svg" style="width: 20px; height: 20px; stroke: #34d399;" viewBox="0 0 24 24">
+              <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+              <path d="M22 4L12 14.01l-3-3"/>
+            </svg>
+            Faible
+          </div>
+          <div>
+            <svg class="icon-svg" style="width: 20px; height: 20px; stroke: #f87171;" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M15 9l-6 6m0-6l6 6"/>
+            </svg>
+            Élevé
+          </div>
+          <div class="highlight-col">
+            <svg class="icon-svg" style="width: 20px; height: 20px; stroke: #34d399;" viewBox="0 0 24 24">
+              <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+              <path d="M22 4L12 14.01l-3-3"/>
+            </svg>
+            Optimisé
+          </div>
+        </div>
+
+        <div class="comparison-row">
+          <div class="comparison-label">Complexité</div>
+          <div>
+            <svg class="icon-svg" style="width: 20px; height: 20px; stroke: #fbbf24;" viewBox="0 0 24 24">
+              <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+              <path d="M12 9v4m0 4h.01"/>
+            </svg>
+            Moyenne
+          </div>
+          <div>
+            <svg class="icon-svg" style="width: 20px; height: 20px; stroke: #34d399;" viewBox="0 0 24 24">
+              <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+              <path d="M22 4L12 14.01l-3-3"/>
+            </svg>
+            Simple
+          </div>
+          <div class="highlight-col">
+            <svg class="icon-svg" style="width: 20px; height: 20px; stroke: #fbbf24;" viewBox="0 0 24 24">
+              <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+              <path d="M12 9v4m0 4h.01"/>
+            </svg>
+            Moyenne
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="cta-card">
+        <h2>Vous voulez en savoir plus ?</h2>
+        <p>Consultez le code source ou contactez-moi pour discuter de l'architecture</p>
+        <div class="cta-buttons">
+          <a href="https://github.com/votre-repo" class="btn btn-primary">
+            <svg class="icon-svg" viewBox="0 0 24 24">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
+            </svg>
+            Voir le code
+          </a>
+          <a href="/contact" class="btn btn-secondary">
+            <svg class="icon-svg" viewBox="0 0 24 24">
+              <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+            Me contacter
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Portfolio Technique. Construit avec Node.js, Express & EJS.</p>
+      <p class="footer-tech">
+        <svg class="icon-svg" style="width: 16px; height: 16px;" viewBox="0 0 24 24">
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+        </svg>
+        SSR + Cache •
+        <svg class="icon-svg" style="width: 16px; height: 16px;" viewBox="0 0 24 24">
+          <ellipse cx="12" cy="5" rx="9" ry="3"/>
+          <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+          <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+        </svg>
+        Optimisé •
+        <svg class="icon-svg" style="width: 16px; height: 16px;" viewBox="0 0 24 24">
+          <path d="M23 6l-9.5 9.5-5-5L1 18" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M17 6h6v6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Performant
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

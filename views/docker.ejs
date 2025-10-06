@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guide Docker Complet</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e4e4e4;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            text-align: center;
+            color: #60a5fa;
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: #38bdf8;
+            font-size: 2em;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #38bdf8;
+        }
+
+        h3 {
+            color: #7dd3fc;
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .warning {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid #ef4444;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .tip {
+            background: rgba(34, 197, 94, 0.1);
+            border-left: 4px solid #22c55e;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .info {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid #3b82f6;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        code {
+            background: rgba(30, 41, 59, 0.8);
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: #f472b6;
+            font-family: 'Courier New', monospace;
+        }
+
+        pre {
+            background: rgba(15, 23, 42, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 15px 0;
+            border: 1px solid #334155;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: #a5f3fc;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        .command-box {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 1px solid #475569;
+        }
+
+        .command-title {
+            color: #fbbf24;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        strong {
+            color: #fcd34d;
+        }
+
+        a {
+            color: #60a5fa;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .toc {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+        }
+
+        .toc h2 {
+            margin-top: 0;
+        }
+
+        .toc ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .toc li {
+            padding: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🐳 Guide Docker Complet</h1>
+        <p class="subtitle">Maîtrisez Docker de A Ã  Z - Base solide pour vos projets</p>
+
+        <div class="toc">
+            <h2>📋 Table des matières</h2>
+            <ul>
+                <li><a href="#concepts">1. Concepts fondamentaux</a></li>
+                <li><a href="#installation">2. Installation</a></li>
+                <li><a href="#images">3. Gestion des images</a></li>
+                <li><a href="#conteneurs">4. Gestion des conteneurs</a></li>
+                <li><a href="#dockerfile">5. Création d'images (Dockerfile)</a></li>
+                <li><a href="#volumes">6. Volumes et persistance</a></li>
+                <li><a href="#bonnes-pratiques">7. Bonnes pratiques</a></li>
+            </ul>
+        </div>
+
+        <div class="section" id="concepts">
+            <h2>1. Concepts Fondamentaux</h2>
+            
+            <h3>🎯 Qu'est-ce que Docker ?</h3>
+            <p>Docker est un outil de conteneurisation qui permet d'exécuter des applications de manière isolée. Il utilise des fonctionnalités du noyau Linux (namespaces et cgroups) pour créer des environnements isolés.</p>
+
+            <div class="info">
+                <strong>⚠️ Important :</strong> Docker nécessite un noyau Linux. Sur Windows/macOS, il utilise WSL2 ou une VM pour fonctionner.
+            </div>
+
+            <h3>📦 Les 3 concepts clés</h3>
+            
+            <div class="command-box">
+                <div class="command-title">🖼️ IMAGE</div>
+                <p>Un paquet contenant votre application et toutes ses dépendances (code, configuration, bibliothèques).</p>
+                <ul>
+                    <li><strong>Immuable</strong> : une fois créée, elle ne peut pas être modifiée</li>
+                    <li><strong>Composée de couches</strong> : chaque modification crée une nouvelle couche</li>
+                    <li>Une application = une image</li>
+                </ul>
+            </div>
+
+            <div class="command-box">
+                <div class="command-title">📦 CONTENEUR</div>
+                <p>Une instance d'exécution d'une image. C'est l'application qui tourne réellement.</p>
+                <ul>
+                    <li>Léger et isolé du système hôte</li>
+                    <li>Les données sont <strong>éphémères par défaut</strong></li>
+                    <li>Peut être démarré, arrêté, supprimé</li>
+                </ul>
+            </div>
+
+            <div class="command-box">
+                <div class="command-title">💾 VOLUME</div>
+                <p>Un espace de stockage pour conserver les données de manière persistante.</p>
+                <ul>
+                    <li>Situé en dehors du conteneur</li>
+                    <li>Les données survivent à la suppression du conteneur</li>
+                    <li>Essentiel pour les bases de données, logs, etc.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section" id="installation">
+            <h2>2. Installation</h2>
+            
+            <h3>Windows</h3>
+            <ol>
+                <li>Installer WSL2 (Windows Subsystem for Linux)</li>
+                <li>Télécharger Docker Desktop depuis docker.com</li>
+                <li>Installer et redémarrer</li>
+            </ol>
+
+            <h3>Linux</h3>
+            <pre><code># Installation sur Ubuntu/Debian
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+
+# Ajouter l'utilisateur au groupe docker
+sudo usermod -aG docker $USER</code></pre>
+
+            <h3>Vérification</h3>
+            <pre><code>docker --version
+docker info</code></pre>
+        </div>
+
+        <div class="section" id="images">
+            <h2>3. Gestion des Images</h2>
+
+            <h3>Rechercher une image</h3>
+            <pre><code># Rechercher une image
+docker search python
+
+# Filtrer par étoiles et officiel
+docker search --filter=stars=100 --filter=is-official=true python</code></pre>
+
+            <h3>Télécharger une image</h3>
+            <pre><code># Télécharger la dernière version
+docker pull python
+
+# Télécharger une version spécifique
+docker pull python:3.10
+
+# Télécharger une version slim (allégée)
+docker pull python:3.13-slim</code></pre>
+
+            <div class="tip">
+                <strong>💡 Astuce :</strong> Les versions "slim" sont plus légères (quelques centaines de Mo vs plusieurs Go).
+            </div>
+
+            <h3>Lister les images</h3>
+            <pre><code>docker images
+# ou
+docker image ls</code></pre>
+
+            <h3>Supprimer une image</h3>
+            <pre><code># Supprimer une image
+docker rmi nom_image
+
+# Forcer la suppression
+docker rmi -f nom_image</code></pre>
+
+            <div class="warning">
+                <strong>⚠️ Attention :</strong> Vous devez d'abord supprimer les conteneurs qui utilisent l'image.
+            </div>
+
+            <h3>Sauvegarder/Restaurer une image</h3>
+            <pre><code># Sauvegarder une image dans un fichier .tar
+docker save python:3.10 -o image_python310.tar
+
+# Charger une image depuis un fichier
+docker load -i image_python310.tar</code></pre>
+        </div>
+
+        <div class="section" id="conteneurs">
+            <h2>4. Gestion des Conteneurs</h2>
+
+            <h3>Créer et exécuter un conteneur</h3>
+            <pre><code># Méthode rapide (crée, démarre et attache)
+docker run -it ubuntu
+
+# Avec un nom personnalisé
+docker run -it --name mon_conteneur ubuntu
+
+# En arrière-plan (détaché)
+docker run -d --name mon_app nginx
+
+# Avec redirection de port
+docker run -d -p 8080:80 nginx</code></pre>
+
+            <div class="info">
+                <strong>Options importantes :</strong>
+                <ul>
+                    <li><code>-i</code> : mode interactif (entrée clavier)</li>
+                    <li><code>-t</code> : terminal intégré</li>
+                    <li><code>-d</code> : mode détaché (arrière-plan)</li>
+                    <li><code>-p</code> : redirection de port (hôte:conteneur)</li>
+                    <li><code>--name</code> : nom du conteneur</li>
+                    <li><code>--rm</code> : supprime le conteneur après exécution</li>
+                </ul>
+            </div>
+
+            <h3>Lister les conteneurs</h3>
+            <pre><code># Conteneurs actifs uniquement
+docker ps
+
+# Tous les conteneurs (actifs et arrêtés)
+docker ps -a
+# ou
+docker container ls -a</code></pre>
+
+            <h3>Gérer l'exécution</h3>
+            <pre><code># Démarrer un conteneur arrêté
+docker start nom_conteneur
+
+# Arrêter un conteneur
+docker stop nom_conteneur
+
+# Redémarrer
+docker restart nom_conteneur
+
+# Mettre en pause
+docker pause nom_conteneur
+
+# Reprendre
+docker unpause nom_conteneur</code></pre>
+
+            <h3>Exécuter des commandes dans un conteneur</h3>
+            <pre><code># Exécuter une commande
+docker exec -it mon_conteneur ls
+
+# Ouvrir un shell
+docker exec -it mon_conteneur bash
+# ou
+docker exec -it mon_conteneur sh</code></pre>
+
+            <h3>Copier des fichiers</h3>
+            <pre><code># Du conteneur vers l'hôte
+docker cp mon_conteneur:/chemin/fichier.txt ./
+
+# De l'hôte vers le conteneur
+docker cp ./fichier.txt mon_conteneur:/chemin/</code></pre>
+
+            <h3>Afficher les logs</h3>
+            <pre><code># Afficher les logs
+docker logs mon_conteneur
+
+# Suivre les logs en temps réel
+docker logs -f mon_conteneur
+
+# Afficher les logs depuis 5 minutes
+docker logs --since 5m mon_conteneur</code></pre>
+
+            <h3>Statistiques et inspection</h3>
+            <pre><code># Statistiques en temps réel
+docker stats
+
+# Statistiques ponctuelles
+docker stats --no-stream
+
+# Inspecter un conteneur
+docker inspect mon_conteneur</code></pre>
+
+            <h3>Supprimer des conteneurs</h3>
+            <pre><code># Supprimer un conteneur arrêté
+docker rm nom_conteneur
+
+# Forcer la suppression (même en cours d'exécution)
+docker rm -f nom_conteneur
+
+# Supprimer tous les conteneurs arrêtés
+docker container prune</code></pre>
+        </div>
+
+        <div class="section" id="dockerfile">
+            <h2>5. Création d'Images (Dockerfile)</h2>
+
+            <h3>Structure d'un Dockerfile</h3>
+            <pre><code># Image de base
+FROM python:3.13-slim
+
+# Métadonnées
+LABEL vendor="monsite.com"
+LABEL version="1.0"
+LABEL description="Application exemple"
+
+# Variables d'environnement
+ENV APP_NAME="MonApp"
+
+# Répertoire de travail
+WORKDIR /app
+
+# Copier les fichiers
+COPY requirements.txt .
+COPY . .
+
+# Installer les dépendances
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
+# Exposer un port
+EXPOSE 8000
+
+# Commande d'exécution
+CMD ["python", "app.py"]</code></pre>
+
+            <h3>Directives principales</h3>
+            
+            <div class="command-box">
+                <div class="command-title">FROM</div>
+                <p>Définit l'image de base (obligatoire, première directive)</p>
+                <pre><code>FROM python:3.13-slim</code></pre>
+            </div>
+
+            <div class="command-box">
+                <div class="command-title">RUN</div>
+                <p>Exécute une commande lors de la construction de l'image</p>
+                <pre><code>RUN apt-get update && apt-get install -y curl</code></pre>
+            </div>
+
+            <div class="command-box">
+                <div class="command-title">COPY</div>
+                <p>Copie des fichiers depuis l'hôte vers l'image</p>
+                <pre><code>COPY . /app</code></pre>
+            </div>
+
+            <div class="command-box">
+                <div class="command-title">WORKDIR</div>
+                <p>Définit le répertoire de travail</p>
+                <pre><code>WORKDIR /app</code></pre>
+            </div>
+
+            <div class="command-box">
+                <div class="command-title">CMD</div>
+                <p>Commande exécutée au démarrage du conteneur</p>
+                <pre><code>CMD ["python", "app.py"]</code></pre>
+            </div>
+
+            <div class="command-box">
+                <div class="command-title">EXPOSE</div>
+                <p>Indique les ports que le conteneur écoute</p>
+                <pre><code>EXPOSE 8000</code></pre>
+            </div>
+
+            <h3>Construire une image</h3>
+            <pre><code># Construction basique
+docker build -t mon_image .
+
+# Avec un tag spécifique
+docker build -t mon_image:1.0 .
+
+# Depuis un autre répertoire
+docker build -t mon_image /chemin/vers/dockerfile</code></pre>
+
+            <div class="tip">
+                <strong>💡 Bonnes pratiques :</strong>
+                <ul>
+                    <li>Utiliser des images de base slim/alpine</li>
+                    <li>Regrouper les commandes RUN pour réduire les couches</li>
+                    <li>Copier les fichiers de dépendances avant le code (cache)</li>
+                    <li>Nettoyer les fichiers temporaires dans la même commande RUN</li>
+                </ul>
+            </div>
+
+            <h3>Exemple complet : Application Python</h3>
+            <pre><code># Dockerfile
+FROM python:3.13-slim
+
+LABEL maintainer="vous@exemple.com"
+
+WORKDIR /app
+
+# Copier et installer les dépendances
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copier le code de l'application
+COPY . .
+
+# Port exposé
+EXPOSE 5000
+
+# Commande de démarrage
+CMD ["python", "app.py"]</code></pre>
+
+            <pre><code># Construire et exécuter
+docker build -t mon_app .
+docker run -d -p 5000:5000 --name mon_conteneur mon_app</code></pre>
+        </div>
+
+        <div class="section" id="volumes">
+            <h2>6. Volumes et Persistance</h2>
+
+            <h3>Pourquoi les volumes ?</h3>
+            <p>Par défaut, les données dans un conteneur sont <strong>éphémères</strong> : elles disparaissent quand le conteneur est supprimé.</p>
+
+            <div class="warning">
+                <strong>⚠️ Sans volume :</strong> Installation de logiciels, création de fichiers = tout est perdu au redémarrage !
+            </div>
+
+            <h3>Créer et gérer des volumes</h3>
+            <pre><code># Créer un volume
+docker volume create mon_volume
+
+# Lister les volumes
+docker volume ls
+
+# Inspecter un volume
+docker volume inspect mon_volume
+
+# Supprimer un volume
+docker volume rm mon_volume
+
+# Supprimer les volumes non utilisés
+docker volume prune</code></pre>
+
+            <h3>Utiliser un volume avec un conteneur</h3>
+            <pre><code># Attacher un volume lors de la création
+docker run -it -v mon_volume:/data --name test ubuntu
+
+# Le volume sera monté dans /data du conteneur
+# Tout ce qui est écrit dans /data sera persistant</code></pre>
+
+            <div class="info">
+                <strong>Syntaxe :</strong> <code>-v nom_volume:chemin_conteneur</code>
+            </div>
+
+            <h3>Partage de fichiers (bind mount)</h3>
+            <p>Pour partager un répertoire entre l'hôte et le conteneur :</p>
+
+            <pre><code># Syntaxe complète avec --mount
+docker run -it \
+  --mount type=bind,source=/chemin/hote,target=/data \
+  --name test ubuntu
+
+# Syntaxe courte avec -v
+docker run -it -v /chemin/hote:/data --name test ubuntu
+
+# En lecture seule
+docker run -it -v /chemin/hote:/data:ro --name test ubuntu</code></pre>
+
+            <div class="tip">
+                <strong>💡 Cas d'usage :</strong>
+                <ul>
+                    <li><strong>Volume</strong> : pour les données d'application (bases de données, logs)</li>
+                    <li><strong>Bind mount</strong> : pour le développement (code source partagé)</li>
+                </ul>
+            </div>
+
+            <h3>Exemple pratique : Base de données MySQL</h3>
+            <pre><code># Créer un volume pour MySQL
+docker volume create mysql_data
+
+# Lancer MySQL avec persistance
+docker run -d \
+  --name mysql_db \
+  -e MYSQL_ROOT_PASSWORD=motdepasse \
+  -v mysql_data:/var/lib/mysql \
+  -p 3306:3306 \
+  mysql:8.0
+
+# Les données MySQL sont maintenant persistantes !</code></pre>
+        </div>
+
+        <div class="section" id="bonnes-pratiques">
+            <h2>7. Bonnes Pratiques et Remarques</h2>
+
+            <h3>🎯 Commandes essentielles à connaître</h3>
+            <pre><code># Aide sur une commande
+docker COMMANDE --help
+
+# Version et informations
+docker --version
+docker info
+
+# Nettoyage complet
+docker system prune -a    # Supprime tout ce qui n'est pas utilisé</code></pre>
+
+            <h3>✅ Workflow recommandé pour débuter</h3>
+            <ol>
+                <li><strong>Tester avec des images existantes</strong> : Commencez par <code>docker run</code> avec des images officielles</li>
+                <li><strong>Comprendre les volumes</strong> : Expérimentez avec la persistance des données</li>
+                <li><strong>Créer vos propres images</strong> : Écrivez des Dockerfiles simples</li>
+                <li><strong>Construire des projets</strong> : Combinez images, volumes et réseaux</li>
+            </ol>
+
+            <h3>⚠️ Erreurs courantes à éviter</h3>
+            
+            <div class="warning">
+                <strong>1. Oublier de supprimer les conteneurs avant les images</strong>
+                <pre><code># ❌ Erreur
+docker rmi mon_image
+
+# ✅ Correct
+docker rm mon_conteneur
+docker rmi mon_image</code></pre>
+            </div>
+
+            <div class="warning">
+                <strong>2. Ne pas utiliser de volumes pour les données importantes</strong>
+                <p>Base de données, fichiers uploadés = <strong>toujours utiliser un volume</strong></p>
+            </div>
+
+            <div class="warning">
+                <strong>3. Confondre nom d'image et nom de conteneur</strong>
+                <ul>
+                    <li>Image = le modèle (ex: <code>python:3.10</code>)</li>
+                    <li>Conteneur = l'instance qui tourne (ex: <code>mon_app</code>)</li>
+                </ul>
+            </div>
+
+            <h3>📚 Projets pour pratiquer</h3>
+            
+            <div class="command-box">
+                <div class="command-title">Projet 1 : Application Python simple</div>
+                <p>Créez un script Python qui affiche "Hello Docker", créez un Dockerfile, et exécutez-le.</p>
+            </div>
+
+            <div class="command-box">
+                <div class="command-title">Projet 2 : Site web statique</div>
+                <p>Utilisez nginx pour servir un site HTML simple avec un volume pour le code.</p>
+            </div>
+
+            <div class="command-box">
+                <div class="command-title">Projet 3 : Application avec base de données</div>
+                <p>Créez une app Python + MySQL avec volumes pour la persistance.</p>
+            </div>
+
+            <h3>🔗 Ressources utiles</h3>
+            <ul>
+                <li><a href="https://docs.docker.com" target="_blank">Documentation officielle Docker</a></li>
+                <li><a href="https://hub.docker.com" target="_blank">Docker Hub</a> - Registre d'images</li>
+                <li>Commande <code>docker --help</code> - Toujours disponible !</li>
+            </ul>
+
+            <h3>💪 Prochaines étapes</h3>
+            <p>Une fois ces bases maîtrisées, vous pourrez explorer :</p>
+            <ul>
+                <li><strong>Docker Compose</strong> : orchestrer plusieurs conteneurs</li>
+                <li><strong>Réseaux Docker</strong> : faire communiquer les conteneurs</li>
+                <li><strong>Multi-stage builds</strong> : optimiser vos images</li>
+                <li><strong>Docker Swarm / Kubernetes</strong> : déploiement à grande échelle</li>
+            </ul>
+
+            <div class="tip">
+                <strong>🎓 Conseil final :</strong> La meilleure façon d'apprendre Docker est de <strong>pratiquer</strong>. Créez des petits projets, cassez des choses, réparez-les. C'est comme ça qu'on progresse !
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 60px; padding-top: 20px; border-top: 1px solid #334155; color: #64748b;">
+            <p>🐳 Bon apprentissage avec Docker !</p>
+            <p style="font-size: 0.9em; margin-top: 10px;">Guide créé à partir des vidéos de formation Docker</p>
+        </div>
+    </div>
+</body>
+</html>

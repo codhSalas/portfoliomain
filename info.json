@@ -1,0 +1,80 @@
+{
+"data" : {
+    
+    "contact": {
+      "linkedin": "https://linkedin.com/in/salas-oukil",
+      "github": "https://github.com/codhSalas"
+    },
+    "profil": "Étudiant en Master Informatique, spécialisé en Ingénierie des Données et Intelligence Artificielle à CY Tech. Expérience en développement web full-stack, gestion de bases de données et algorithmes d’optimisation. Recherche une alternance pour approfondir les compétences en ingénierie des données et contribuer à des projets innovants.",
+    "alternance": {
+      "poste": "Développement & Ingénierie des Données",
+      "duree": "24 mois",
+      "disponibilite": "immédiate"
+    },
+    "competences": {
+      "langages": ["JavaScript", "TypeScript", "Python", "C/C++", "Java"],
+      "front_end": ["HTML5", "CSS3", "React"],
+      "back_end": ["Node.js", "FastAPI", "MySQL", "SQLite"],
+      "outils": ["Git", "Docker", "Firebase"]
+    },
+    "competences_transversales": [
+      "Travail d’équipe",
+      "Gestion de projet",
+      "Résolution de problèmes"
+    ],
+    "experience_professionnelle": [
+      {
+        "poste": "Stagiaire Développement Web Full-Stack",
+        "entreprise": "EI Mebrouk GUIDDIR",
+        "periode": "Mai – Juil. 2025",
+        "missions": [
+          "Développement d’une application web avec FastAPI et React",
+          "Conception de base de données et API RESTful",
+          "Collaboration en équipe via GitFlow (Git/GitLab)",
+          "Développement de composants dynamiques",
+          "Manipulation de PDF pour extraire des informations"
+        ]
+      },
+      {
+        "poste": "Stagiaire Développement Web",
+        "entreprise": "DOZ Javel",
+        "periode": "Mai – Juin 2021",
+        "missions": [
+          "Développement front-end du site Universdoz",
+          "Intégration HTML, CSS, JavaScript"
+        ]
+      }
+    ],
+    "formation": [
+      {
+        "intitule": "Master Informatique",
+        "ecole": "CY Tech — Cergy",
+        "periode": "2025–2027",
+        "specialisation": "Ingénierie des Données pour les systèmes intelligents distribués"
+      },
+      {
+        "intitule": "Licence Informatique",
+        "ecole": "Université de Perpignan (UPVD)",
+        "periode": "2023–2025"
+      },
+      {
+        "intitule": "Licence Informatique",
+        "ecole": "Université de Béjaïa",
+        "periode": "2020–2023",
+        "cours_principaux": [
+          "Programmation Orientée Objet",
+          "Systèmes",
+          "Web",
+          "Bases de données"
+        ]
+      }
+    ],
+    "engagement_associatif": {
+      "association": "Linkee",
+      "role": "Distribution alimentaire"
+    },
+    "centres_d_interet": {
+      "loisirs": ["Échecs", "Jeux vidéo", "Manga"]
+    }
+  }
+}
