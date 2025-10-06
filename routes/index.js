@@ -15,10 +15,10 @@ router.get('/', async function(req, res, next) {
         const cacheKey = 'index-page';
         const cachedPage = cache.get(cacheKey);
         
-        // if (cachedPage) {
-        //     console.log("Page servie depuis le cache");
-        //     return res.send(cachedPage);
-        // }
+        if (cachedPage) {
+            console.log("Page servie depuis le cache");
+            return res.send(cachedPage);
+        }
         
         // Attendre la récupération des projets
         const projectsList = await projects();
