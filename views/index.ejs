@@ -19,13 +19,9 @@
                 <nav>
                     <ul>
                         <li><a href="#about">À propos</a></li>
-                        <li><a href="#alternance">Alternance</a></li>
-                        <li><a href="#education">Formation</a></li>
                         <li><a href="#skills">Compétences</a></li>
                         <li><a href="#experience">Expérience</a></li>
                         <li><a href="#projects">Projets</a></li>
-                        <li><a href="#engagement">Engagement</a></li>
-                        <li><a href="#interests">Centres d'intérêt</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </nav>
@@ -44,11 +40,11 @@
         </section>
         <!-- RECHERCHE D'ALTERNANCE -->
         <% if (alternance) { %>
-            <section id="alternance">
+            <section id="about">
                 <h2 class="section-title"><i class="fa-solid fa-bullseye-arrow"></i> Recherche d'Alternance</h2>
                 <div class="card-container">
-                    <div class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
-                        <h3 class="card-title" style="color: white;"><%= alternance.poste %></h3>
+                    <div class="card" id="alternance-card">
+                        <h3 class="card-title" ><%= alternance.poste %></h3>
                         <div style="display: flex; gap: 2rem; margin-top: 1rem; flex-wrap: wrap;">
                             <div>
                                 <p style="margin: 0;"><strong><i class="fa-solid fa-calendar"></i> Durée :</strong> <%= alternance.duree %></p>
@@ -62,7 +58,7 @@
             </section>
             <% } %>
         <!-- À PROPOS -->
-        <section id="about">
+        <section id="alternance">
             <h2 class="section-title">À propos de moi</h2>
             <% if (profil) { %>
                 <p><%= profil %></p>
@@ -162,7 +158,7 @@
         
         <!-- EXPÉRIENCE PROFESSIONNELLE -->
         <section id="experience">
-            <h2 class="section-title">💼 Expérience Professionnelle</h2>
+            <h2 class="section-title"><i class="fa-solid fa-briefcase"></i> Expérience Professionnelle</h2>
             <% if (experience_professionnelle && experience_professionnelle.length > 0) { %>
                 <div class="card-container">
                     <% experience_professionnelle.forEach(exp => { %>
@@ -192,11 +188,11 @@
         
         <!-- PROJETS GITHUB -->
         <section id="projects">
-            <h2 class="section-title">🚀 Projets</h2>
+            <h2 class="section-title"><i class="fa-solid fa-rocket"></i> Projets</h2>
             
             <% if (error) { %>
                 <div class="error-message" style="background: #fee; color: #c33; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-                    ⚠️ <%= error %>
+                    <i class="fa-solid fa-triangle-exclamation"></i> <%= error %>
                 </div>
             <% } %>
             

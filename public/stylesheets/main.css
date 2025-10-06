@@ -17,6 +17,7 @@ a {
 :root {
   --dark-bg: #1a1a1a;
   --light-text: #d2c6a8;
+  --dark-text: #a29668;
   --section-spacing: 60px;
 }
 
@@ -367,7 +368,10 @@ textarea.form-control {
       align-items: start;
   }
 }
-
+#alternance-card{
+  background: linear-gradient(135deg, var(--light-text) 0%, var(--dark-text) 100%);
+  color: var(--dark-bg);
+}
 @media (min-width: 992px) {
   .title {
       font-size: 3.5rem;
