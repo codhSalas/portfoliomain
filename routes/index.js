@@ -21,13 +21,31 @@ router.get('/', async function(req, res, next) {
         }
         
         // Attendre la récupération des projets
-        const projectsList = await projects();
+        try{
+            const projectsList = await projects();
+
+        }catch{
+            res.render('index',{
+                title: 'Portfolio - Salas OUKIL',
+                projects: null,
+                profil: data.profil,
+                alternance: data.alternance,
+                competences: data.competences,
+                competences_transversales: data.competences_transversales,
+                experience_professionnelle: data.experience_professionnelle,
+                formation: data.formation,
+                engagement_associatif: data.engagement_associatif,
+                centres_d_interet: data.centres_d_interet,
+                contact: data.contact,
+                error: null
+            })
+        }
         
         console.log("Génération de la page...");
         
         res.render('index', { 
             title: 'Portfolio - Salas OUKIL',
-            projects: projectsList,
+            projects: null,
             profil: data.profil,
             alternance: data.alternance,
             competences: data.competences,

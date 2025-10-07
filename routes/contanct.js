@@ -4,11 +4,17 @@ import parameters from '../config/parameters.js';
 const router = express.Router();
 const trasporteur = nodemailer.createTransport({
     service: 'gmail',
-    auth : {
-        user : parameters.getGmailUser(),
-        pass : parameters.getPassword()
-    }
-})
+    auth: {
+      user: parameters.getGmailUser(),
+      pass: parameters.getPassword()
+    },
+    port:587,
+    tls: {
+      rejectUnauthorized: false
+    },
+    connectionTimeout: 60000,
+    greetingTimeout: 30000
+});
 
 router.post('/', function(req, res, next) {
     const { subject, message, name, email } = req.body;
