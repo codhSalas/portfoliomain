@@ -5,11 +5,6 @@ import fs from 'fs';
 class Parameters {
   constructor() {
     this.loadEnv();
-    this.host = this.setHost();
-    this.port = this.setPort();
-    this.dataBaseUrl = this.setDataBaseUrl();
-    this.gmailUser = this.setGmailUser();
-    this.password = this.setPassword();
   }
 
   loadEnv = () => {
@@ -30,27 +25,21 @@ class Parameters {
     if (!curEnv) {
       throw new Error('[ENV] Le paramètre ENV est manquant dans le fichier .env');
     }
-
-    const envFile = `.env.${curEnv}`;
-    const envPath = path.resolve(process.cwd(), envFile);
-
-    if (!fs.existsSync(envPath)) {
-      throw new Error(`[ENV] Fichier ${envFile} introuvable !`);
+    if (curEnv == "PROD"){
+      this.host = process.env.PROD_HOST;
+      this.port = process.env.PROD_PORT;
+      this.dataBaseUrl = process.env.PROD_DATA_BASE_URL
+      this.getGmailUser = process.env.PORD_PSWD;
+      
+    }else{
+      this.host = process.env.DEV_HOST;
+      this.port = process.env.DEV_PORT;
+      this.dataBaseUrl = process.env.DEV_DATA_BASE_URL
+      this.getGmailUser = process.env.DEV_PSWD;
     }
 
-    const envResult = dotenv.config({ path: envPath, override: true });
-    if (envResult.error) {
-      throw new Error(`[ENV] Erreur lors du chargement du fichier ${envFile} : ${envResult.error.message}`);
-    }
-
-    console.log(`[ENV] Fichier ${envFile} chargé`);
+    
   };
-
-  setHost = () => process.env.HOST;
-  setPort = () => process.env.PORT;
-  setDataBaseUrl = () => process.env.DATA_BASE_URL;
-  setGmailUser = () => process.env.EMAIL;
-  setPassword = () => process.env.PSWD;
   
 
   getHost = () => this.host;
