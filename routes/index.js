@@ -2,6 +2,7 @@ import express from 'express';
 import NodeCache from 'node-cache';
 import projects from '../services/main.js';
 import jsonData from '../info.json' with {type:'json'};
+import getProjects from '../services/main.js';
 
 const cache = new NodeCache({ stdTTL: 600 });
 const router = express.Router();
@@ -21,13 +22,14 @@ router.get('/', async function(req, res, next) {
         }
         
         // Attendre la récupération des projets
-        try{
-            const projectsList = await projects();
+        const projectsList = await getProjects();
 
-        }catch{
-            res.render('index',{
+        
+        console.log("Génération de la page...");
+        if (!(projectsList.length === 0)) {
+            res.render('index', { 
                 title: 'Portfolio - Salas OUKIL',
-                projects: null,
+                projects: projectsList,
                 profil: data.profil,
                 alternance: data.alternance,
                 competences: data.competences,
@@ -38,33 +40,39 @@ router.get('/', async function(req, res, next) {
                 centres_d_interet: data.centres_d_interet,
                 contact: data.contact,
                 error: null
-            })
+            }, (err, html) => {
+                if (err) {
+                    return next(err);
+                }
+                
+                console.log("Page mise en cache");
+                cache.set(cacheKey, html);
+                res.send(html);
+            });
+        }else{
+            res.render('index', { 
+                title: 'Portfolio - Salas OUKIL',
+                projects: [],
+                profil: data.profil,
+                alternance: data.alternance,
+                competences: data.competences,
+                competences_transversales: data.competences_transversales,
+                experience_professionnelle: data.experience_professionnelle,
+                formation: data.formation,
+                engagement_associatif: data.engagement_associatif,
+                centres_d_interet: data.centres_d_interet,
+                contact: data.contact,
+                error: 'Erreur lors du chargement des projets GitHub'
+            }, (err, html) => {
+                if (err) {
+                    return next(err);
+                }
+                
+                console.log("Page mise en cache");
+                cache.set(cacheKey, html);
+                res.send(html);
+            });
         }
-        
-        console.log("Génération de la page...");
-        
-        res.render('index', { 
-            title: 'Portfolio - Salas OUKIL',
-            projects: null,
-            profil: data.profil,
-            alternance: data.alternance,
-            competences: data.competences,
-            competences_transversales: data.competences_transversales,
-            experience_professionnelle: data.experience_professionnelle,
-            formation: data.formation,
-            engagement_associatif: data.engagement_associatif,
-            centres_d_interet: data.centres_d_interet,
-            contact: data.contact,
-            error: null
-        }, (err, html) => {
-            if (err) {
-                return next(err);
-            }
-            
-            console.log("Page mise en cache");
-            cache.set(cacheKey, html);
-            res.send(html);
-        });
         
     } catch (error) {
         console.error('Erreur lors de la récupération des projets:', error);

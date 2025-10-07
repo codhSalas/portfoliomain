@@ -8,7 +8,7 @@ const trasporteur = nodemailer.createTransport({
       user: parameters.getGmailUser(),
       pass: parameters.getPassword()
     },
-    port:587,
+
     tls: {
       rejectUnauthorized: false
     },
