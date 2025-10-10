@@ -3,7 +3,7 @@ import NodeCache from 'node-cache';
 const cache = new NodeCache({ stdTTL: 600 });
 const router = express.Router();
 
-/* GET home page. */
+
 router.get('/', function(req, res, next) {
   const cacheKey = 'docker-page';
   const cachedPage = cache.get(cacheKey);
