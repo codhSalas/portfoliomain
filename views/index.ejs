@@ -38,13 +38,14 @@
                 <img src="/images/salas.png" alt="Salas OUKIL">
             </div>
         </section>
+        
         <!-- RECHERCHE D'ALTERNANCE -->
         <% if (alternance) { %>
-            <section id="about">
+            <section id="alternance">
                 <h2 class="section-title"><i class="fa-solid fa-bullseye-arrow"></i> Recherche d'Alternance</h2>
                 <div class="card-container">
                     <div class="card" id="alternance-card">
-                        <h3 class="card-title" ><%= alternance.poste %></h3>
+                        <h3 class="card-title"><%= alternance.poste %></h3>
                         <div style="display: flex; gap: 2rem; margin-top: 1rem; flex-wrap: wrap;">
                             <div>
                                 <p style="margin: 0;"><strong><i class="fa-solid fa-calendar"></i> Durée :</strong> <%= alternance.duree %></p>
@@ -56,9 +57,10 @@
                     </div>
                 </div>
             </section>
-            <% } %>
+        <% } %>
+        
         <!-- À PROPOS -->
-        <section id="alternance">
+        <section id="about">
             <h2 class="section-title">À propos de moi</h2>
             <% if (profil) { %>
                 <p><%= profil %></p>
@@ -228,7 +230,33 @@
                 <% } %>
             </div>
         </section>
-
+        
+        <% if (projets_en_cours && projets_en_cours.length > 0) { %>
+            <section id="ongoing-projects">
+                <h2 class="section-title"><i class="fa-solid fa-code"></i> Projets en cours</h2>
+                <div class="card-container">
+                    <% projets_en_cours.forEach(project => { %>
+                        <div class="card project-card">
+                            <h3 class="card-title"><%= project %></h3>
+                        </div>
+                    <% }) %>
+                </div>
+            </section>
+        <% } %>
+        
+        <% if (langues && langues.length > 0) { %>
+            <section id="languages">
+                <h2 class="section-title"><i class="fa-solid fa-globe"></i> Langues</h2>
+                <div class="card-container">
+                    <% langues.forEach(lang => { %>
+                        <div class="card">
+                            <h3 class="card-title"><%= lang %></h3>
+                        </div>
+                    <% }) %>
+                </div>
+            </section>
+        <% } %>
+        
         <!-- ENGAGEMENT ASSOCIATIF -->
         <% if (engagement_associatif) { %>
         <section id="engagement">
@@ -260,16 +288,18 @@
         
         <!-- CONTACT -->
         <section id="contact">
-            <h2 class="section-title"><span class="contact-icon"><i class="fas fa-envelope"></i></span>
-                Contact</h2>
+            <h2 class="section-title">
+                <span class="contact-icon"><i class="fas fa-envelope"></i></span>
+                Contact
+            </h2>
             <p style="text-align: center; margin-bottom: 2rem;">
                 N'hésitez pas à me contacter pour discuter de collaborations, opportunités d'alternance ou simplement pour échanger sur des sujets tech.
             </p>
-            <form action="/contact" method="post">
-                <div class="contact-container">
-                    <div class="contact-form">
-                        <h3 class="card-title">Envoyez-moi un message</h3>
-                        
+            <div class="contact-container">
+                <div class="contact-form">
+                    <h3 class="card-title">Envoyez-moi un message</h3>
+                    
+                    <form action="/contact" method="post" id="contactForm">
                         <div class="form-group">
                             <label for="name">Nom</label>
                             <input type="text" id="name" name="name" class="form-control" required>
@@ -287,7 +317,8 @@
                             <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
                         </div>
                         <button type="submit" class="btn">Envoyer le message</button>
-            </form>
+                        <div id="formMessage" class="form-message" style="display: none; margin-top: 1rem; padding: 1rem; border-radius: 8px;"></div>
+                    </form>
                 </div>
             </div>
         </section>
@@ -327,7 +358,7 @@
                 </div>
             </div>
         </div>
-        <p>le but du projet c'est de faire les premier pas sur docker et les optimisation avec cashe pour les rendue cote serveur </p>
+        <p>Le but du projet c'est de faire les premiers pas sur Docker et les optimisations avec cache pour les rendus côté serveur</p>
         <p>&copy; 2025 Salas OUKIL. Tous droits réservés.</p>
     </footer>
     
@@ -363,29 +394,32 @@
         });
         
         // Formulaire de contact
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formMessage = document.getElementById('formMessage');
-            formMessage.textContent = 'Envoi en cours...';
-            formMessage.className = 'form-message';
-            formMessage.style.display = 'block';
-            formMessage.style.background = '#e3f2fd';
-            formMessage.style.color = '#1976d2';
-            
-            // Simulation d'envoi (remplacer par un vrai appel API)
-            setTimeout(() => {
-                formMessage.textContent = '✓ Votre message a été envoyé avec succès ! Je vous répondrai dans les plus brefs délais.';
-                formMessage.style.background = '#e8f5e9';
-                formMessage.style.color = '#2e7d32';
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
                 
-                document.getElementById('contactForm').reset();
+                const formMessage = document.getElementById('formMessage');
+                formMessage.textContent = 'Envoi en cours...';
+                formMessage.className = 'form-message';
+                formMessage.style.display = 'block';
+                formMessage.style.background = '#e3f2fd';
+                formMessage.style.color = '#1976d2';
                 
+                // Simulation d'envoi (remplacer par un vrai appel API)
                 setTimeout(() => {
-                    formMessage.style.display = 'none';
-                }, 5000);
-            }, 1000);
-        });
+                    formMessage.textContent = '✓ Votre message a été envoyé avec succès ! Je vous répondrai dans les plus brefs délais.';
+                    formMessage.style.background = '#e8f5e9';
+                    formMessage.style.color = '#2e7d32';
+                    
+                    contactForm.reset();
+                    
+                    setTimeout(() => {
+                        formMessage.style.display = 'none';
+                    }, 5000);
+                }, 1000);
+            });
+        }
     </script>
 </body>
 </html>

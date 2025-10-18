@@ -17,10 +17,22 @@
       "back_end": ["Node.js", "FastAPI", "MySQL", "SQLite"],
       "outils": ["Git", "Docker", "Firebase"]
     },
+    "projets_en_cours":[
+      "application des LLM et RAG pour les graphes de connaissances",
+      "manipulation des données yelp pour construire un systèmes de recommandation de restaurants"
+    ]
+    ,
     "competences_transversales": [
       "Travail d’équipe",
       "Gestion de projet",
-      "Résolution de problèmes"
+      "Résolution de problèmes",
+      "Autonome",
+      "Méthodique"
+    ],
+    "langues": [
+      "Français",
+      "Kabyle",
+      "Arabe"
     ],
     "experience_professionnelle": [
       {
